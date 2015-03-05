@@ -1,0 +1,125 @@
+#
+# Conditional build:
+%bcond_without	python2	# CPython 2.x module
+%bcond_without	python3	# CPython 3.x module
+%bcond_without	tests	# do not perform "setup.py test"
+#
+Summary:	Python 2 module to choose appropriate application directories
+Summary(pl.UTF-8):	Moduł Pythona 2 do wyboru właściwych katalogów aplikacji
+Name:		python-appdirs
+Version:	1.4.0
+Release:	1
+License:	MIT
+Group:		Development/Languages/Python
+#Source0Download: https://pypi.python.org/pypi/appdirs
+Source0:	https://pypi.python.org/packages/source/a/appdirs/appdirs-%{version}.tar.gz
+# Source0-md5:	1d17b4c9694ab84794e228f28dc3275b
+URL:		https://github.com/ActiveState/appdirs
+%if %{with python2}
+BuildRequires:	python-devel >= 1:2.4
+%endif
+%if %{with python3}
+BuildRequires:	python3-devel >= 1:3.2
+%endif
+BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.612
+BuildArch:	noarch
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%description
+appdirs is a module that helps you choose an appropriate:
+ - user data dir
+ - user config dir
+ - user cache dir
+ - site data dir
+ - site config dir
+ - user log dir
+
+%description -l pl.UTF-8
+appdirs to moduł pomagający wybrać właściwy katalog dla:
+ - danych użytkownika
+ - konfiguracji użytkownika
+ - pamięci podręcznej użytkownika
+ - danych systemu
+ - konfiguracji systemu
+ - logów użytkownika
+
+%package -n python3-appdirs
+Summary:	Python 3 module to choose appropriate application directories
+Summary(pl.UTF-8):	Moduł Pythona 3 do wyboru właściwych katalogów aplikacji
+Group:		Development/Languages/Python
+
+%description -n python3-appdirs
+appdirs is a module that helps you choose an appropriate:
+ - user data dir
+ - user config dir
+ - user cache dir
+ - site data dir
+ - site config dir
+ - user log dir
+
+%description -n python3-appdirs -l pl.UTF-8
+appdirs to moduł pomagający wybrać właściwy katalog dla:
+ - danych użytkownika
+ - konfiguracji użytkownika
+ - pamięci podręcznej użytkownika
+ - danych systemu
+ - konfiguracji systemu
+ - logów użytkownika
+
+%prep
+%setup -q -n appdirs-%{version}
+
+%build
+%if %{with python2}
+%{__python} setup.py build \
+	--build-base build-2 %{?with_tests:test}
+%endif
+
+%if %{with python3}
+%{__python3} setup.py build \
+	--build-base build-3 %{?with_tests:test}
+%endif
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+%if %{with python2}
+%{__python} setup.py build \
+		--build-base build-2 \
+	install \
+		--skip-build \
+		--optimize=2 \
+		--root=$RPM_BUILD_ROOT
+
+%py_postclean
+%endif
+
+%if %{with python3}
+%{__python3} setup.py build \
+		--build-base build-3 \
+	install \
+		--skip-build \
+		--optimize=2 \
+		--root=$RPM_BUILD_ROOT
+%endif
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%if %{with python2}
+%files
+%defattr(644,root,root,755)
+%doc CHANGES.rst LICENSE.txt README.rst
+%{py_sitescriptdir}/appdirs.py[co]
+%{py_sitescriptdir}/appdirs-%{version}-py*.egg-info
+%endif
+
+%if %{with python3}
+%files -n python3-appdirs
+%defattr(644,root,root,755)
+%doc CHANGES.rst LICENSE.txt README.rst
+%{py3_sitescriptdir}/appdirs.py
+%{py3_sitescriptdir}/__pycache__/appdirs.cpython-*.py[co]
+%{py3_sitescriptdir}/appdirs-%{version}-py*.egg-info
+%endif
