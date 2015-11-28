@@ -72,12 +72,12 @@ appdirs to moduł pomagający wybrać właściwy katalog dla:
 
 %build
 %if %{with python2}
-%{__python} setup.py build \
+%py_build \
 	--build-base build-2 %{?with_tests:test}
 %endif
 
 %if %{with python3}
-%{__python3} setup.py build \
+%py3_build \
 	--build-base build-3 %{?with_tests:test}
 %endif
 
@@ -85,7 +85,7 @@ appdirs to moduł pomagający wybrać właściwy katalog dla:
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with python2}
-%{__python} setup.py build \
+%py_build \
 		--build-base build-2 \
 	install \
 		--skip-build \
@@ -96,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %if %{with python3}
-%{__python3} setup.py build \
+%py3_build \
 		--build-base build-3 \
 	install \
 		--skip-build \
