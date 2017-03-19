@@ -7,22 +7,27 @@
 Summary:	Python 2 module to choose appropriate application directories
 Summary(pl.UTF-8):	Moduł Pythona 2 do wyboru właściwych katalogów aplikacji
 Name:		python-appdirs
-Version:	1.4.0
-Release:	6
+Version:	1.4.3
+Release:	1
 License:	MIT
 Group:		Development/Languages/Python
-#Source0Download: https://pypi.python.org/pypi/appdirs
-Source0:	https://pypi.python.org/packages/source/a/appdirs/appdirs-%{version}.tar.gz
-# Source0-md5:	1d17b4c9694ab84794e228f28dc3275b
+#Source0Download: https://pypi.python.org/simple/appdirs
+Source0:	https://files.pythonhosted.org/packages/source/a/appdirs/appdirs-%{version}.tar.gz
+# Source0-md5:	44c679904082a2133f5566c8a0d3ab42
 URL:		https://github.com/ActiveState/appdirs
 %if %{with python2}
-BuildRequires:	python-devel >= 1:2.4
+BuildRequires:	python-devel >= 1:2.6
+BuildRequires:	python-setuptools
+%if %{with tests} && "%{py_ver}" < "2.7"
+BuildRequires:	python-unittest2
+%endif
 %endif
 %if %{with python3}
 BuildRequires:	python3-devel >= 1:3.2
+BuildRequires:	python3-setuptools
 %endif
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.710
+BuildRequires:	rpmbuild(macros) >= 1.714
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
