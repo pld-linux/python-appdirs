@@ -8,7 +8,7 @@ Summary:	Python 2 module to choose appropriate application directories
 Summary(pl.UTF-8):	Moduł Pythona 2 do wyboru właściwych katalogów aplikacji
 Name:		python-appdirs
 Version:	1.4.3
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.python.org/simple/appdirs
