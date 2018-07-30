@@ -17,14 +17,18 @@ Source0:	https://files.pythonhosted.org/packages/source/a/appdirs/appdirs-%{vers
 URL:		https://github.com/ActiveState/appdirs
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.6
-BuildRequires:	python-setuptools
 %if %{with tests} && "%{py_ver}" < "2.7"
 BuildRequires:	python-unittest2
+%endif
+%if %{with tests}
+BuildRequires:	python-setuptools
 %endif
 %endif
 %if %{with python3}
 BuildRequires:	python3-devel >= 1:3.2
+%if %{with tests}
 BuildRequires:	python3-setuptools
+%endif
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
