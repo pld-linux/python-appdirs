@@ -3,6 +3,7 @@
 %bcond_without	python2	# CPython 2.x module
 %bcond_without	python3	# CPython 3.x module
 %bcond_without	tests	# do not perform "setup.py test"
+%bcond_without  setuptools # build without setuptools (for bootstraping)
 #
 Summary:	Python 2 module to choose appropriate application directories
 Summary(pl.UTF-8):	Moduł Pythona 2 do wyboru właściwych katalogów aplikacji
@@ -17,18 +18,14 @@ Source0:	https://files.pythonhosted.org/packages/source/a/appdirs/appdirs-%{vers
 URL:		https://github.com/ActiveState/appdirs
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.6
+%{?with_setuptools:BuildRequires:      python-setuptools}
 %if %{with tests} && "%{py_ver}" < "2.7"
 BuildRequires:	python-unittest2
-%endif
-%if %{with tests}
-BuildRequires:	python-setuptools
 %endif
 %endif
 %if %{with python3}
 BuildRequires:	python3-devel >= 1:3.2
-%if %{with tests}
-BuildRequires:	python3-setuptools
-%endif
+%{?with_setuptools:BuildRequires:      python3-setuptools}
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
