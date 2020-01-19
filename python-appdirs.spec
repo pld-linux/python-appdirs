@@ -78,11 +78,21 @@ appdirs to moduł pomagający wybrać właściwy katalog dla:
 
 %build
 %if %{with python2}
-%py_build %{?with_tests:test}
+%py_build
+
+%if %{with tests}
+PYTHONPATH=$(pwd) \
+%{__python} test/test_api.py
+%endif
 %endif
 
 %if %{with python3}
-%py3_build %{?with_tests:test}
+%py3_build
+
+%if %{with tests}
+PYTHONPATH=$(pwd) \
+%{__python3} test/test_api.py
+%endif
 %endif
 
 %install
