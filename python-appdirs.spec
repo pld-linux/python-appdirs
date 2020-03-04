@@ -12,7 +12,7 @@ Version:	1.4.3
 Release:	3
 License:	MIT
 Group:		Development/Languages/Python
-#Source0Download: https://pypi.python.org/simple/appdirs
+#Source0Download: https://pypi.org/simple/appdirs
 Source0:	https://files.pythonhosted.org/packages/source/a/appdirs/appdirs-%{version}.tar.gz
 # Source0-md5:	44c679904082a2133f5566c8a0d3ab42
 URL:		https://github.com/ActiveState/appdirs
