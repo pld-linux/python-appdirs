@@ -1,30 +1,27 @@
 #
 # Conditional build:
-%bcond_without	python2	# CPython 2.x module
-%bcond_without	python3	# CPython 3.x module
-%bcond_without	tests	# do not perform "setup.py test"
-%bcond_without  setuptools # build without setuptools (for bootstraping)
+%bcond_without	python2		# CPython 2.x module
+%bcond_without	python3		# CPython 3.x module
+%bcond_without	tests		# do not perform "setup.py test"
+%bcond_without	setuptools	# build without setuptools (for bootstraping)
 #
 Summary:	Python 2 module to choose appropriate application directories
 Summary(pl.UTF-8):	Moduł Pythona 2 do wyboru właściwych katalogów aplikacji
 Name:		python-appdirs
-Version:	1.4.3
-Release:	4
+Version:	1.4.4
+Release:	1
 License:	MIT
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.org/simple/appdirs
 Source0:	https://files.pythonhosted.org/packages/source/a/appdirs/appdirs-%{version}.tar.gz
-# Source0-md5:	44c679904082a2133f5566c8a0d3ab42
+# Source0-md5:	d6bca12613174185dd9abc8a29f4f012
 URL:		https://github.com/ActiveState/appdirs
 %if %{with python2}
-BuildRequires:	python-devel >= 1:2.6
+BuildRequires:	python-devel >= 1:2.7
 %{?with_setuptools:BuildRequires:      python-setuptools}
-%if %{with tests} && "%{py_ver}" < "2.7"
-BuildRequires:	python-unittest2
-%endif
 %endif
 %if %{with python3}
-BuildRequires:	python3-devel >= 1:3.2
+BuildRequires:	python3-devel >= 1:3.4
 %{?with_setuptools:BuildRequires:      python3-setuptools}
 %endif
 BuildRequires:	rpm-pythonprov
